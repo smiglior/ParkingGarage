@@ -299,3 +299,190 @@ public class EmployeeTest {
 
     }
 }
+import java.util.*;
+
+public class Customer {
+
+private String lastName, firstName;
+private String emailAddress;
+private String licensePlate;
+private List<String> licensePlates = new ArrayList<>();
+private List<String> raffleTickets = new ArrayList<>();
+
+public Customer(String lastN, String firstN, String email, String license) {
+
+lastName = lastN;
+firstName = firstN;
+emailAddress = email;
+licensePlate = license;
+licensePlates.add(licensePlate);
+
+
+}
+
+public  boolean addLicense(String license) {
+return licensePlates.add(license);
+}
+
+public  boolean removeLicense(String license) {
+if (!licensePlates.contains(license)) {
+	return false;
+} else {
+	return licensePlates.remove(license);
+}
+
+}
+
+public String getName() {
+return lastName + ", " + firstName;
+}
+
+public String getFirstName() {
+
+return firstName;
+}
+
+public String getLastName() {
+
+return lastName;
+}
+
+public String getEmail() {
+return emailAddress;
+}
+
+public String getLicense() {
+return licensePlate;
+}
+
+public List<String> printPlates() {
+
+return licensePlates;
+}
+
+
+public String getCustomer() {
+
+return "Last Name: " + lastName + " First Name: " + firstName +
+		    "\nEmail Address: " + emailAddress +
+	            "\nPlates on File: " + licensePlates.toString();
+}
+
+public static void main(String[] args) {
+Customer c1 = new Customer("wolf", "lone", "loneWolf@gmail.com", "rxm10937pol");
+System.out.println(c1.getName());
+System.out.println(c1.getEmail());
+System.out.println(c1.getLicense());
+
+c1.addLicense("deck-9op0");
+c1.addLicense("call-98yu");
+c1.addLicense("mash-45p9");
+c1.addLicense("palr-32yt");
+
+System.out.println(c1.getCustomer());
+System.out.println(c1.printPlates());
+}
+
+}
+public class Security {
+
+// id scanner for payment
+// leaving gate accessed by certain employees 
+// after payment fulfilled gate should open then after 30 seconds gate should close
+
+private Employee empOnDuty;
+private String gate;
+private boolean isOpen;
+
+
+public Security(String gateLocation, boolean state){
+
+gate = gateLocation;
+isOpen = state;
+}
+
+public boolean setState(boolean state){
+
+return isOpen = state;
+}
+
+// ternary operator, result = testCondition ? value1 : value2
+public String state() {
+
+return isOpen ? "open" : "closed"; 
+}
+
+// set employee on duty
+public void setEmpOnDuty(Employee duty){
+
+empOnDuty = duty;
+}
+
+// get employe on duty
+public String getEmpOnDuty() {
+
+return empOnDuty.getEmployeeInfo();
+}
+
+public static void main(String[] args){
+
+Security main = new Security("Main Gate", false);
+Employee e = new Employee("hanks","Tom","booth sitter");
+Customer c1 = new Customer("wolf","lone","loneWolf@gmail.com","rxm786");
+main.setEmpOnDuty(e);
+System.out.println(main.getEmpOnDuty());
+//main.setEmpOnDuty(c1);
+
+}
+
+
+}
+import static org.junit.Assert.*;
+import org.junit.Test;
+
+public class SecurityTest {
+
+@Test
+public void setStateTest() {
+
+Security main = new Security("Main Gate", false);
+
+assertTrue("Testing for openning of the gate", main.setState(true));
+assertFalse("Testing for closing of the gate", main.setState(false));
+
+}
+
+@Test
+public void stateTest() {
+
+Security main = new Security("Main Gate", false);
+
+String testClose = "closed";
+String testOpen = "open";
+
+assertEquals("Checking if the gate is open or closed, Should be closed in this case", testClose, main.state());
+
+main.setState(true);
+
+assertEquals("Checking if the gate is open or closed, Should be open in this case", testOpen, main.state());
+}
+
+
+@Test
+public void getOnDuty() {
+
+Security main = new Security("Main Gate", false);
+Employee e = new Employee("hanks","Tom","booth sitter");
+
+main.setEmpOnDuty(e);
+
+String testOnDuty = "Name: hanks, Tom\nOccupation: booth sitter";
+assertEquals("Testing for employee info output match", testOnDuty, main.getEmpOnDuty());
+}
+
+
+
+
+
+
+}
